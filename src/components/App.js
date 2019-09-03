@@ -28,8 +28,13 @@ class App extends Component {
   daysNames = ["Niedziela", "Poniedz.", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"]
 
   //method for downloading data about current weather from external API
-  handleFetchCurrentWeather = () => {
-    const currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?q=${this.state.cityName},pl&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+  handleFetchCurrentWeather = (dataType, geolocationX = "0", geolocationY = "0") => {
+    let currentWeatherApi = "";
+    if (dataType === "geolocation") {
+      currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?lat=${geolocationX}&lon=${geolocationY}&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+    } else {
+      currentWeatherApi = `https://api.openweathermap.org/data/2.5/weather?q=${this.state.cityName},pl&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+    }
 
     fetch(currentWeatherApi)
       .then(response => {
@@ -48,7 +53,7 @@ class App extends Component {
           currentWeather: data,
           currentWeatherDownloaded: true,
           fetchError404: false
-        })
+        });
       })
       .catch(error => {
         console.log(error);
@@ -56,8 +61,13 @@ class App extends Component {
   }
 
   // method for downloading data about weather forecast from external API
-  handleFetchWeatherForecast = () => {
-    const weatherForecastApi = `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.cityName},pl&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+  handleFetchWeatherForecast = (dataType, geolocationX = "0", geolocationY = "0") => {
+    let weatherForecastApi = "";
+    if (dataType === "geolocation") {
+      weatherForecastApi = `https://api.openweathermap.org/data/2.5/forecast?lat=${geolocationX}&lon=${geolocationY}&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+    } else {
+      weatherForecastApi = `https://api.openweathermap.org/data/2.5/forecast?q=${this.state.cityName},pl&APPID=695372989472a8618dc8654571d57c8d&units=metric`;
+    }
 
     fetch(weatherForecastApi)
       .then(response => {
@@ -79,7 +89,7 @@ class App extends Component {
           weatherForecast,
           weatherForecastDownloaded: true,
           fetchError404: false
-        })
+        });
       })
       .catch(error => {
         console.log(error);
@@ -104,7 +114,7 @@ class App extends Component {
       firstDayIndex,
       firstDayIndexImproved,
       firstNightIndex
-    })
+    });
   }
 
   // method, which changes city name for the value from the input
@@ -122,9 +132,56 @@ class App extends Component {
       currentWeatherDownloaded: false,
       weatherForecastDownloaded: false,
       firstIndexesSet: false
-    })
-    this.handleFetchCurrentWeather();
-    this.handleFetchWeatherForecast();
+    });
+    this.handleFetchCurrentWeather("form");
+    this.handleFetchWeatherForecast("form");
+  }
+
+  // method called after click the location button
+  handleSubmitWithGeolocation = () => {
+    this.getLocation();
+  }
+
+  // method, which gets device position
+  getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(this.setPosition, this.showError);
+    } else {
+      alert("Geolokalizacja nie jest wspierana przez Twoją przeglądarkę. Sprawdź ustawienia lub skorzystaj z formularza miejscowości.");
+    }
+  }
+
+  // method, which sets device position and calls fetch methods, which will download data from the API
+  setPosition = (position) => {
+    this.setState({
+      cityName: "",
+      buttonClicked: true,
+      currentWeatherDownloaded: false,
+      weatherForecastDownloaded: false,
+      firstIndexesSet: false
+    });
+    this.handleFetchCurrentWeather("geolocation", position.coords.latitude, position.coords.longitude);
+    this.handleFetchWeatherForecast("geolocation", position.coords.latitude, position.coords.longitude);
+  }
+
+  // method, which is called, when an error occurs, during getting device position
+  showError = (error) => {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert("Odmowa dostępu do lokalizacji. Sprawdź ustawienia lub skorzystaj z formularza miejscowości.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert("Lokalizacja niedostępna. Skorzystaj z formularza miejscowości lub spróbuj ponownie później.");
+        break;
+      case error.TIMEOUT:
+        alert("Upłynął czas oczekiwania na dostęp do lokalizacji. Skorzystaj z formularza miejscowości lub spróbuj ponownie później.");
+        break;
+      case error.UNKNOWN_ERROR:
+        alert("Wystąpił nieznany błąd lokalizacji. Skorzystaj z formularza miejscowości lub spróbuj ponownie później.");
+        break;
+      default:
+        alert("Wystąpił nieznany błąd lokalizacji. Skorzystaj z formularza miejscowości lub spróbuj ponownie później.");
+    }
   }
 
   // method, which checks same boolean values from the state and calls setFirstIndexes method
@@ -141,8 +198,9 @@ class App extends Component {
       <section id="weatherWidget">
         <form onSubmit={this.handleSubmit}>
           Wpisz nazwę miejscowości:&nbsp;
-          <input type="text" value={this.state.cityName} onChange={this.handleChangeCityName} />&nbsp;
-          <button>Wyszukaj</button>
+          <input type="text" value={this.state.cityName} onChange={this.handleChangeCityName} />
+          <button type="submit">Wyszukaj</button>
+          <button type="button" onClick={this.handleSubmitWithGeolocation}>Lokalizuj</button>
         </form>
 
         <div id="weatherApp">
