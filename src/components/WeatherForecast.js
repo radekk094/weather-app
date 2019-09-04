@@ -32,7 +32,7 @@ const WeatherForecast = (props) => {
     }
 
     return (
-        <div id="weatherForecast">
+        <div className="weatherForecast">
             {weatherForecastList}
         </div>
     );

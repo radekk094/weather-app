@@ -1,6 +1,16 @@
-body {
+/* ========================================================================== */
+/* STYLES RESET */
+/* ========================================================================== */
+
+
+* {
   margin: 0;
   padding: 0;
-  color: #646664;
+  box-sizing: border-box;
+}
+
+html {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #555;
+  line-height: 1.6;
 }

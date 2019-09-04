@@ -195,7 +195,7 @@ class App extends Component {
   // component with three parts - form to enter city name, part with current weather and part with weather forecast
   render() {
     return (
-      <section id="weatherWidget">
+      <section className="weatherWidget">
         <form onSubmit={this.handleSubmit}>
           Wpisz nazwę miejscowości:&nbsp;
           <input type="text" value={this.state.cityName} onChange={this.handleChangeCityName} />
@@ -203,12 +203,14 @@ class App extends Component {
           <button type="button" onClick={this.handleSubmitWithGeolocation}>Lokalizuj</button>
         </form>
 
-        <div id="weatherApp">
+        <div className="weatherApp">
           {this.state.buttonClicked ? (
             (this.state.currentWeatherDownloaded && this.state.weatherForecastDownloaded && this.state.firstIndexesSet) ? (
               <>
-                <h2>{this.state.cityNameImproved}</h2>
-                {this.daysNames[this.state.currentDate.getDay()]}, {this.state.currentDate.toLocaleString()}
+                <div className="locationData">
+                  <h2>{this.state.cityNameImproved}</h2>
+                  <p>{this.daysNames[this.state.currentDate.getDay()]}, {this.state.currentDate.toLocaleString()}</p>
+                </div>
                 <div>
                   <CurrentWeather
                     currentWeather={this.state.currentWeather}
@@ -227,6 +229,7 @@ class App extends Component {
               )
           ) : <h3>Wpisz nazwę miejscowości i kliknij przycisk.</h3>}
         </div>
+        <footer><p>&copy; 2019, created by <span>Radosław Kołodziejczyk</span></p></footer>
       </section>
     );
   }

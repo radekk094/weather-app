@@ -50,7 +50,7 @@ const Icon = (props) => {
 
     return (
         <>
-            {title ? (<>{selectedImage[0].alt}<br /></>) : null}
+            {title ? (<p>{selectedImage[0].alt}</p>) : null}
             <img src={selectedImage[0].src} alt={selectedImage[0].alt} />
         </>
     );

@@ -1,233 +1,268 @@
-/* MAIN STYLES - for width <= 400px */
+/* ========================================================================== */
+/* MAIN STYLES - for width <= 360px */
+/* ========================================================================== */
 
+
+/* ========================================================================== */
 /* GENERAL STYLES */
+/* ========================================================================== */
 
-section,
-div {
-  height: auto;
-  box-sizing: border-box;
-  overflow: auto;
-  line-height: 1.6;
-}
 
 section {
+  max-width: 1200px;
   margin: 5px;
   padding: 5px;
 }
 
 
+
+/* ========================================================================== */
 /* FORM STYLES */
+/* ========================================================================== */
+
 
 section form {
   padding: 10px;
-  color: #414445;
 }
 
 section form input,
 section form button {
-  margin-bottom: 10px;
+  margin: 0 5px 10px 0;
   padding: 5px 10px;
-  border: 1px solid #212324;
+  border: 1px solid #222;
   background-color: #d7f2fc;
-  color: #414445;
+  color: #555;
   font-size: 16px;
 }
 
 section form button {
-  margin-left: 5px;
   cursor: pointer;
 }
 
 
-/* MAIN INFO STYLES - city name and current date */
 
-div#weatherApp {
+/* ========================================================================== */
+/* MAIN INFO STYLES - city name and current date */
+/* ========================================================================== */
+
+
+div.weatherApp {
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid #555;
   background-color: #bfeef5;
   font-size: 12px;
 }
 
-div#weatherApp h2 {
-  margin: 0px;
-  color: black;
+div.weatherApp h2 {
+  color: #000;
   font-size: 40px;
   font-weight: normal;
 }
 
 
-/* CURRENT WEATHER STYLES */
 
-div#currentWeather {
+/* ========================================================================== */
+/* CURRENT WEATHER STYLES */
+/* ========================================================================== */
+
+
+div.currentWeather {
+  display: flex;
   margin-top: 10px;
 }
 
-div#currentWeather div {
-  width: 50%;
-  float: left;
+div.currentWeather div {
+  flex-basis: 50%;
 }
 
-div#currentWeather img {
+div.currentWeather img {
   width: 72px;
   margin-right: 5px;
 }
 
-div#currentWeather div span {
-  color: black;
+div.currentWeather div span {
+  color: #000;
 }
 
-div#currentWeather div:first-child span {
+div.currentWeather div:first-child span {
   display: inline-block;
   font-size: 2em;
   vertical-align: top;
 }
 
-div#currentWeather div:first-child span sup {
+div.currentWeather div:first-child span sup {
   color: #646664;
   font-size: 0.4em;
   vertical-align: text-top;
 }
 
 
-/* WEATHER FORECAST STYLES */
 
-div#weatherForecast {
-  margin-top: 10px;
+/* ========================================================================== */
+/* WEATHER FORECAST STYLES */
+/* ========================================================================== */
+
+
+div.weatherForecast {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
 }
 
 div.dailyWeather {
-  position: relative;
-  height: 90px;
-  border-top: 1px solid gray;
+  display: flex;
+  padding: 5px 0;
+  border-top: 1px solid #888;
 }
 
 div.dailyWeather div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0px 5px;
 }
 
 div.dailyWeather>div {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  float: left;
-  vertical-align: middle;
+  text-align: center;
 }
 
-div.dailyWeather div h4 {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0px;
-  color: black;
+div.dailyWeather>div:first-child {
+  justify-content: flex-start;
+}
+
+div.dailyWeather>div:nth-child(1) {
+  flex-basis: 30%;
+}
+
+div.dailyWeather>div:nth-child(2) {
+  flex-basis: 40%;
+}
+
+div.dailyWeather>div:nth-child(3) {
+  flex-basis: 30%;
+}
+
+div.dailyWeather h4 {
+  color: #000;
 }
 
 div.dailyWeather img {
   width: 40px;
-  vertical-align: middle;
-}
-
-div.dailyWeather>div:not(:first-child) {
-  text-align: center;
-}
-
-div.dailyWeather>div:nth-child(1) {
-  left: 0;
-  width: 25%;
-  height: 100%;
-}
-
-div.dailyWeather>div:nth-child(2) {
-  left: 25%;
-  width: 45%;
-}
-
-div.dailyWeather>div:nth-child(3) {
-  left: 70%;
-  width: 30%;
-}
-
-div.temperatureValues img {
   margin-right: 5px;
 }
 
+div.temperatureValues {
+  flex-direction: column;
+}
+
 div.temperatureValues div:first-child {
-  color: black;
+  color: #000;
+}
+
+footer {
+  margin-top: 20px;
+  padding-top: 5px;
+  border-top: 1px solid #555;
+  text-align: center;
+  font-size: 12px;
+}
+
+footer span {
+  font-style: italic;
 }
 
 
-/* MEDIA QUERIES - adaptation to larger widths */
 
-@media (min-width: 400px) {
-  div#weatherApp {
+/* ========================================================================== */
+/* MEDIA QUERIES - adaptation to larger widths */
+/* ========================================================================== */
+
+
+@media (min-width: 360px) {
+
+  div.weatherApp,
+  footer {
     font-size: 14px;
   }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 460px) {
   section {
     margin: 10px;
     padding: 10px;
   }
 
-  div#weatherApp h2 {
+  div.weatherApp h2 {
     font-size: 50px;
   }
 
-  div#currentWeather {
+  div.currentWeather {
     font-size: 16px;
   }
 
   div.dailyWeather {
-    height: 60px;
+    padding: 10px;
+  }
+
+  div.dailyWeather>div:nth-child(1) {
+    flex-basis: 25%;
   }
 
   div.dailyWeather>div:nth-child(2) {
-    width: 55%;
+    flex-basis: 55%;
   }
 
   div.dailyWeather>div:nth-child(3) {
-    left: 80%;
-    width: 20%;
+    flex-basis: 20%;
+  }
+
+  div.temperatureValues {
+    flex-direction: row;
   }
 
   div.temperatureValues div {
     width: 50%;
-    float: left;
   }
 }
 
 @media (min-width: 576px) {
-  div#weatherApp h2 {
+  div.weatherApp h2 {
     font-size: 60px;
   }
 
-  div.dailyWeather {
-    height: 70px;
-    font-size: 16px;
+  div.currentWeather>div,
+  div.locationData {
+    padding-left: 10px;
   }
 
-  div.dailyWeather img {
-    width: 60px;
+  div.dailyWeather,
+  footer {
+    font-size: 16px;
   }
 
   div.dailyWeather h4 {
     margin-left: 10px;
   }
+
+  div.dailyWeather img {
+    width: 60px;
+  }
 }
 
 @media (min-width: 768px) {
 
-  div#currentWeather,
+  section form input,
+  section form button {
+    margin-right: 10px;
+  }
+
+  div.currentWeather,
   div.dailyWeather {
     font-size: 20px;
   }
 
-  div#currentWeather img {
+  div.currentWeather img {
     width: 90px;
-  }
-
-  div.dailyWeather {
-    height: 90px;
   }
 
   div.dailyWeather h4 {
@@ -240,17 +275,37 @@ div.temperatureValues div:first-child {
 }
 
 @media (min-width: 992px) {
-  div#weatherForecast {
-    margin-top: 20px;
+
+  section form,
+  section form input,
+  section form button {
+    font-size: 20px;
+  }
+
+  div.currentWeather>div:first-child,
+  div.locationData {
+    padding-left: 20px;
+  }
+
+  div.weatherForecast {
+    flex-direction: row;
+    justify-content: space-around;
   }
 
   div.dailyWeather {
-    position: static;
-    width: 20%;
-    height: auto;
+    flex-direction: column;
+    flex-basis: 18%;
     border-top: none;
-    float: left;
     font-size: 16px;
+  }
+
+  div.dailyWeather div {
+    display: block;
+  }
+
+  div.dailyWeather h4 {
+    margin-left: 0px;
+    font-size: 18px;
   }
 
   div.dailyWeather img {
@@ -258,42 +313,16 @@ div.temperatureValues div:first-child {
     margin-right: 0px;
   }
 
-  div.dailyWeather>div {
-    clear: left;
-    position: static;
-    transform: translateY(0%);
+  div.dailyWeather>div:not(:first-child) {
+    margin-top: 5px;
   }
 
-  div.dailyWeather div h4 {
-    position: static;
-    transform: translateY(0%);
-    margin-left: 0px;
-    font-size: 18px;
-  }
-
-  div.dailyWeather>div:first-child {
-    text-align: center;
-  }
-
-  div.dailyWeather>div:nth-child(1n) {
-    width: 100%;
-  }
-
-  div.dailyWeather>div:last-child {
-    margin-top: 10px;
-  }
-
-  div.temperatureValues {
-    padding: 0px 20px !important;
+  div.dailyWeather div.temperatureValues {
+    display: flex;
   }
 
   div.temperatureValues div {
+    flex-basis: 50%;
     text-align: center;
-  }
-}
-
-@media (min-width: 1200px) {
-  section {
-    width: 1200px;
   }
 }

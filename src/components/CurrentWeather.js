@@ -15,7 +15,7 @@ const CurrentWeather = (props) => {
 
     // component with current weather (two parts) - icon and some info about current weather
     return (
-        <div id="currentWeather">
+        <div className="currentWeather">
             <div>
                 <Icon
                     title={true}
@@ -24,12 +24,12 @@ const CurrentWeather = (props) => {
                 <span>{currentWeather.main.temp.toFixed()}<sup> {"\xB0C"}</sup></span>
             </div>
             <div>
-                Ciśnienie: <span>{currentWeather.main.pressure} hPa</span><br />
-                Wiatr: <span>{currentWeather.wind.speed} m/s&nbsp;
-                <WindDirection degValue={currentWeather.wind.deg} /></span><br />
-                Wilgotność: <span>{currentWeather.main.humidity}%</span><br />
-                Wschód słońca: <span>{setTimeFormatFromUnix(currentWeather.sys.sunrise)}</span><br />
-                Zachód słońca: <span>{setTimeFormatFromUnix(currentWeather.sys.sunset)}</span>
+                <p>Ciśnienie: <span>{currentWeather.main.pressure} hPa</span></p>
+                <p>Wiatr: <span>{currentWeather.wind.speed} m/s&nbsp;
+                <WindDirection degValue={currentWeather.wind.deg} /></span></p>
+                <p>Wilgotność: <span>{currentWeather.main.humidity}%</span></p>
+                <p>Wschód słońca: <span>{setTimeFormatFromUnix(currentWeather.sys.sunrise)}</span></p>
+                <p>Zachód słońca: <span>{setTimeFormatFromUnix(currentWeather.sys.sunset)}</span></p>
             </div>
         </div>
     );
